@@ -8,8 +8,9 @@
 
 # production
 /build
-# database
-/mongo
+# database for testing the apps functionality.
+
+panel-api/mongo
 
 # misc
 .DS_Store
@@ -21,3 +22,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Webstorm files
+.idea
