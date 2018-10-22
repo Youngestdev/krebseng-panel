@@ -8,6 +8,8 @@
 
 # production
 /build
+# database
+/mongo
 
 # misc
 .DS_Store
