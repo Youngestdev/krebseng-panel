@@ -11,7 +11,7 @@
 # database for testing the apps functionality.
 
 panel-api/mongo
-
+mongo/
 # misc
 .DS_Store
 .env.local
