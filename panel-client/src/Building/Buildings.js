@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Link, withRouter} from 'react-router-dom';
 import TableRow from "./TabRow";
+import auth0Client from "../Auth/Auth";
 
 
 class Buildings extends Component {
@@ -12,7 +14,9 @@ class Buildings extends Component {
   }
 
   async componentDidMount() {
-    const buildings = (await axios.get('http://localhost:8000/panel/buildings')).data;
+    const buildings = (await axios.get('http://localhost:8000/panel/buildings', {
+      headers: {'Authorization': `Bearer ${auth0Client.getIdToken()}`}
+    })).data;
     this.setState({
       buildings,
     })
@@ -29,9 +33,9 @@ class Buildings extends Component {
       <div className="container">
         <div className="row">
           {this.state.buildings === null && <p> Loading Buildings</p>}
-          <div className="card-header">
-            <h3>Button should go here</h3>
-          </div>
+          <Link className="btn btn-primary  btn-lg" to="/panel/new-building">
+            Add New Building
+          </Link>
           <table className="table table-striped">
             <thead>
             <tr>
@@ -50,4 +54,4 @@ class Buildings extends Component {
   }
 }
 
-export default Buildings;
+export default withRouter(Buildings);

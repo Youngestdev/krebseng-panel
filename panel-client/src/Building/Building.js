@@ -19,13 +19,17 @@ class Building extends Component {
 
   render() {
     const {building} = this.state;
-    if ( building === null) return <p>Loading</p>
+    if ( building === null) return <p>Loading</p>;
     return (
       <div className="container">
-        <div className="row">
-          <h1 className="display-3">{building.title}</h1>
+        <div className="col">
+          <blockquote>
+            Next up, fix the building display page.
+          </blockquote>
+          <hr/>
+          <h1 className="display-3">{building.title}</h1><hr/>
           <h3>Address</h3>
-          <b>{building.address}</b>
+          <b>{building.address}</b><hr/>
         </div>
       </div>
     )

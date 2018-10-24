@@ -12,8 +12,14 @@ class NewBuilding extends Component {
       title: '',
       address: '',
       neighborhood: '',
-      date: Date.now()
+      date: ''
     };
+  }
+
+  updateDate(value) {
+    this.setState({
+      date: value,
+    });
   }
 
   updateDescription(value) {
@@ -42,14 +48,15 @@ class NewBuilding extends Component {
       title: this.state.title,
       address: this.state.address,
       neighborhood: this.state.neighborhood,
-      date: Date.now()
-    }
+      date: this.state.date,
+      user: auth0Client.getProfile().name
+    };
     axios.post('http://localhost:8000/panel/building', building, {
       headers: { 'Authorization': `Bearer ${auth0Client.getIdToken()}` }
     })
       .then(res => console.log(res.data));
 
-    // this.props.history.push('/');
+    this.props.history.push('/');
 
   }
 
@@ -93,6 +100,17 @@ class NewBuilding extends Component {
                     className="form-control"
                     placeholder="Building title."
                   />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="date">Date:</label>
+                  <input
+                    name="date"
+                    disabled={this.state.disabled}
+                    type="date"
+                    onBlur={(e) => {this.updateDate(e.target.value)}}
+                    className="form-control"
+                    // placeholder="01-01-2000"
+                    />
                 </div>
                 {/*<input type="date" name="date" id="date"/>*/}
                 <button

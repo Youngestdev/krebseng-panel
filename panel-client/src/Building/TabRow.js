@@ -7,7 +7,7 @@ class TableRow extends Component {
       <tr>
         <td><Link to={`/panel/building/${this.props.obj._id}`}>{this.props.obj.title}</Link></td>
         <td>{this.props.obj.date}</td>
-        <td>Hmmm... Actions table should go here !</td>
+        <td>TODO: Actions dropdown menu with the <b>Edit</b>and<b>Delete</b> option.</td>
       </tr>
     );
   }
