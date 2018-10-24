@@ -1,24 +1,23 @@
 import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import auth0client from '../Auth/Auth'
+import auth0Client from '../Auth/Auth'
 
 function NavBar(props) {
   const signOut = () => {
-    auth0client.logout();
+    auth0Client.logout();
     props.history.replace('/')
   };
 
   return (
     <nav className="navbar navbar-dark bg-primary fixed-top">
-      <Link className="navbar-brand" to="/">
+      <Link className="navbar-brand" to="/panel/buildings">
         KrebsEng
       </Link>
       {
-        !auth0client.isAuthenticated() && <button className="btn btn-dark" onClick={auth0client.login}>Sign In</button>
+        !auth0Client.isAuthenticated() && <button className="btn btn-dark" onClick={auth0Client.login}>Sign In</button>
       }
       {
-        auth0client.isAuthenticated() && <div>
-            <label htmlFor="profile" className="mr-2 text-white">{auth0client.getProfile().name}</label>
+        auth0Client.isAuthenticated() && <div>
             <button className="btn btn-dark" onClick={() => {signOut()}}>Sign Out</button>
           </div>
       }
