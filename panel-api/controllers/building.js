@@ -1,9 +1,8 @@
 const BuildingModel = require("../model/buildingSchema");
 
 exports.list = (req, res) => {
-  const user = req.body.name;
 
-  BuildingModel.find(user).then(
+  BuildingModel.find({user: req.user.name}).then(
     building => {
       res.json(building);
     }
