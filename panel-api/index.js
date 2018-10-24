@@ -10,7 +10,6 @@ const PORT = process.env.PORT;
 const URI = process.env.MONGO_URI;
 
 const BuildingRoute = require('./routes/building');
-// const error = require('./middleware/errors');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,6 +22,5 @@ mongoose.connect(URI, { useNewUrlParser: true, useCreateIndex: true })
   .catch(err => console.log('An error occurred...', err));
 
 app.use('/panel', BuildingRoute);
-// app.use(error);
 
 app.listen(PORT, () => console.log(`server running at port: ${PORT}`));
