@@ -22,6 +22,11 @@ const BuildingSchema = new Schema({
       type: String,
       trim: true,
       required: true
+    },
+    user: {
+      type: String,
+      trim: true,
+      required: true
     }
   },
   {collection: 'building'}
