@@ -5,12 +5,14 @@ import auth0client from '../Auth/Auth';
 class Callback extends Component {
   async componentDidMount() {
     await auth0client.handleAuthentication();
-    this.props.history.replace('/buildings');
+    this.props.history.replace('/panel/buildings');
   }
 
   render() {
     return (
-      <p>Loading Profile</p>
+      <div className="container">
+        <p>Loading Profile</p>
+      </div>
     );
   }
 }
