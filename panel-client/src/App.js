@@ -7,6 +7,7 @@ import Building from "./Building/Building";
 import auth0Client from "./Auth/Auth";
 import Callback from "./Callback/Callback";
 import SecuredRoute from "./SecuredRoute/SecuredRoute";
+import UpdateBuilding from "./Building/UpdateBuilding";
 
 class App extends Component {
   constructor(props) {
@@ -34,9 +35,10 @@ class App extends Component {
     return (
       <div>
         <NavBar/>
-        <SecuredRoute path='/panel/new-building' component={NewBuilding} checkingSession={this.state.checkingSession}/>
+        <SecuredRoute exact path='/panel/new-building' component={NewBuilding} checkingSession={this.state.checkingSession}/>
         <SecuredRoute exact path='/panel/buildings' component={Buildings} checkingSession={this.state.checkingSession}/>
-        <Route exact path='/panel/building/:id' component={Building}/>
+        <SecuredRoute exact path='/panel/building/:id' component={Building} checkSession={this.state.checkingSession}/>
+         <SecuredRoute exact path='/panel/update-building/:id' component={UpdateBuilding} checkSession={this.state.checkingSession}/>
         <Route exact path='/callback' component={Callback}/>
       </div>
     );
