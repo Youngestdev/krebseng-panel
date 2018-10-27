@@ -36,12 +36,12 @@ class Buildings extends Component {
           <Link className="btn btn-primary  btn-lg" to="/panel/new-building">
             Add New Building
           </Link>
-          <table className="table table-striped">
+          <table className="table">
             <thead>
             <tr>
               <td>Title</td>
               <td>Date</td>
-              <td>Action</td>
+              <td className="right">Action</td>
             </tr>
             </thead>
             <tbody>
