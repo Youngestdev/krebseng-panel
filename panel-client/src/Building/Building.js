@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom'
 import axios from 'axios';
 
 class Building extends Component {
@@ -37,4 +38,4 @@ class Building extends Component {
 }
 
 
-export default Building;
+export default withRouter(Building);
