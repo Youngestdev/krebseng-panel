@@ -52,11 +52,11 @@ class NewBuilding extends Component {
       user: auth0Client.getProfile().name
     };
     axios.post('http://localhost:8000/panel/building', building, {
-      headers: { 'Authorization': `Bearer ${auth0Client.getIdToken()}` }
+      headers: {'Authorization': `Bearer ${auth0Client.getIdToken()}`}
     })
       .then(res => console.log(res.data));
 
-    this.props.history.push('/');
+    this.props.history.push('/panel/buildings');
 
   }
 
@@ -74,7 +74,9 @@ class NewBuilding extends Component {
                     name="title"
                     disabled={this.state.disabled}
                     type="text"
-                    onBlur={(e) => {this.updateTitle(e.target.value)}}
+                    onBlur={(e) => {
+                      this.updateTitle(e.target.value)
+                    }}
                     className="form-control"
                     placeholder="Building title."
                   />
@@ -85,9 +87,11 @@ class NewBuilding extends Component {
                     name="address"
                     disabled={this.state.disabled}
                     type="text"
-                    onBlur={(e) => {this.updateDescription(e.target.value)}}
+                    onBlur={(e) => {
+                      this.updateDescription(e.target.value)
+                    }}
                     className="form-control"
-                    placeholder="Give more context to your question."
+                    placeholder="Building Address."
                   />
                 </div>
                 <div className="form-group">
@@ -96,9 +100,11 @@ class NewBuilding extends Component {
                     name="neighborhood"
                     disabled={this.state.disabled}
                     type="text"
-                    onBlur={(e) => {this.updateNeighborhood(e.target.value)}}
+                    onBlur={(e) => {
+                      this.updateNeighborhood(e.target.value)
+                    }}
                     className="form-control"
-                    placeholder="Building title."
+                    placeholder="Building Neighborhood."
                   />
                 </div>
                 <div className="form-group">
@@ -107,16 +113,20 @@ class NewBuilding extends Component {
                     name="date"
                     disabled={this.state.disabled}
                     type="date"
-                    onBlur={(e) => {this.updateDate(e.target.value)}}
+                    onBlur={(e) => {
+                      this.updateDate(e.target.value)
+                    }}
                     className="form-control"
                     // placeholder="01-01-2000"
-                    />
+                  />
                 </div>
                 {/*<input type="date" name="date" id="date"/>*/}
                 <button
                   disabled={this.state.disabled}
                   className="btn btn-primary"
-                  onClick={() => {this.submit()}}>
+                  onClick={() => {
+                    this.submit()
+                  }}>
                   Submit
                 </button>
               </div>
