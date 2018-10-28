@@ -10,3 +10,8 @@ body {
   text-align: right;
   margin-right: 1em;
 }
+
+td {
+  justify-content: center;
+  align-content: center;
+}
