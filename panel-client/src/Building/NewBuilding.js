@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import auth0Client from '../Auth/Auth';
 import axios from 'axios';
+import moment from 'moment';
+import DatePicker from 'react-datepicker';
+
+import "react-datepicker/dist/react-datepicker.css";
 
 class NewBuilding extends Component {
   constructor(props) {
@@ -12,13 +16,14 @@ class NewBuilding extends Component {
       title: '',
       address: '',
       neighborhood: '',
-      date: ''
+      date: moment()
     };
+    this.updateDate = this.updateDate.bind(this);
   }
 
-  updateDate(value) {
+  updateDate(date) {
     this.setState({
-      date: value,
+      date: date,
     });
   }
 
@@ -62,6 +67,7 @@ class NewBuilding extends Component {
 
   render() {
     return (
+      <div className="row border-primary">
       <div className="container">
         <div className="row">
           <div className="col-12">
@@ -109,18 +115,12 @@ class NewBuilding extends Component {
                 </div>
                 <div className="form-group">
                   <label htmlFor="date">Date:</label>
-                  <input
-                    name="date"
-                    disabled={this.state.disabled}
-                    type="date"
-                    onBlur={(e) => {
-                      this.updateDate(e.target.value)
-                    }}
-                    className="form-control"
-                    // placeholder="01-01-2000"
+                  <DatePicker
+                    selected={this.state.date}
+                    onChange={this.updateDate}
+                    name="date"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
                   />
                 </div>
-                {/*<input type="date" name="date" id="date"/>*/}
                 <button
                   disabled={this.state.disabled}
                   className="btn btn-primary"
@@ -133,6 +133,7 @@ class NewBuilding extends Component {
             </div>
           </div>
         </div>
+      </div>
       </div>
     )
   }
