@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom'
 import axios from 'axios';
-import auth0Client from "../Auth/Auth";
-import {ParseDate} from "../Helpers/ParseDate";
+import auth0Client from '../Auth/Auth';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import "react-datepicker/dist/react-datepicker.css";
 
 class UpdateBuilding extends Component {
   constructor(props) {
@@ -15,29 +18,42 @@ class UpdateBuilding extends Component {
       neighborhood: '',
       date: ''
     };
-    this.handleChange = this.handleChange.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.updateDate = this.updateDate.bind(this);
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
   }
 
   async componentDidMount() {
     const {match: {params}} = this.props;
-    const building = (await axios.get(`http://localhost:8000/panel/building/${params.id}`));
+    const building = (await axios.get(`http://localhost:8000/panel/building/${params.id}`, {
+      headers: {'Authorization': `Bearer ${auth0Client.getIdToken()}`}}));
     this.setState({
-      building: building.data
+      building: building.data,
+      title: building.data.title,
+      address: building.data.address,
+      neighborhood: building.data.neighborhood,
+      date: moment()
     });
   }
 
-  handleChange(prop, e) {
-    this.setState({prop: e.target.value})
+  // TODO: It'll be commented out once I fix the browser related problem.
+  // STATUS: Still working on it.
+  updateDate(date) {
+    this.setState({
+      date: date,
+    });
   }
 
-  // TODO: It'll be commented out once I fix the browser related problem.
-  // updateDate(value) {
-  //   this.setState({
-  //     date: value,
-  //   });
-  // }
-
-  updateDescription(value) {
+  updateAddress(value) {
     this.setState({
       address: value,
     });
@@ -64,6 +80,7 @@ class UpdateBuilding extends Component {
       title: this.state.title,
       address: this.state.address,
       neighborhood: this.state.neighborhood,
+      date: this.state.date,
     };
     axios.put(`http://localhost:8000/panel/building/${params.id}`, building, {
       headers: {'Authorization': `Bearer ${auth0Client.getIdToken()}`}
@@ -94,7 +111,8 @@ class UpdateBuilding extends Component {
                     }}
                     className="form-control"
                     placeholder="Building title"
-                    value={this.state.building.title}
+                    value={this.state.title}
+                    onChange={this.handleInputChange}
                   />
                 </div>
                 <div className="form-group">
@@ -104,11 +122,12 @@ class UpdateBuilding extends Component {
                     disabled={this.state.disabled}
                     type="text"
                     onBlur={(e) => {
-                      this.updateDescription(e.target.value)
+                      this.updateAddress(e.target.value)
                     }}
+                    onChange={this.handleInputChange}
                     className="form-control"
                     placeholder="Building Address"
-                    value={this.state.building.address}
+                    value={this.state.address}
                   />
                 </div>
                 <div className="form-group">
@@ -120,34 +139,27 @@ class UpdateBuilding extends Component {
                     onBlur={(e) => {
                       this.updateNeighborhood(e.target.value)
                     }}
+                    onChange={this.handleInputChange}
                     className="form-control"
                     placeholder="Building Neighborhood."
-                    value={this.state.building.neighborhood}
+                    value={this.state.neighborhood}
                   />
                 </div>
-                {/*Seems a browser related issue is affecting the date update funciton hhre. It's a TODO*/}
-                {/*<div className="form-group">*/}
-                  {/*<label htmlFor="date">Date:</label>*/}
-                  {/*<input*/}
-                    {/*name="date"*/}
-                    {/*disabled={this.state.disabled}*/}
-                    {/*type="date"*/}
-                    {/*data-date=""*/}
-                    {/*data-date-format="DD MM YYYY"*/}
-                    {/*onBlur={(e) => {*/}
-                      {/*this.updateDate(e.target.value)*/}
-                    {/*}}*/}
-                    {/*className="form-control"*/}
-                    {/*value={ParseDate(this.state.building.date)}*/}
-                  {/*/>*/}
-                {/*</div>*/}
+                <div className="form-group">
+                {/* TODO: Fix date updating bug.*/}
+                  <DatePicker
+                    selected={this.state.date}
+                    onChange={this.updateDate}
+                    name="date"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+                  />
+                </div>
                 <button
                   disabled={this.state.disabled}
                   className="btn btn-primary"
                   onClick={() => {
                     this.update()
                   }}>
-                  Submit
+                  Update
                 </button>
               </div>
             </div>
