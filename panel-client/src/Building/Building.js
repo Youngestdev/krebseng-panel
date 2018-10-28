@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom'
+import auth0Client from '../Auth/Auth';
 import axios from 'axios';
 
 class Building extends Component {
@@ -12,7 +13,9 @@ class Building extends Component {
 
   async componentDidMount() {
     const { match: { params }} = this.props;
-    const building = (await axios.get(`http://localhost:8000/panel/building/${params.id}`)).data;
+    const building = (await axios.get(`http://localhost:8000/panel/building/${params.id}`, {
+      headers: {'Authorization': `Bearer ${auth0Client.getIdToken()}`}
+    })).data;
     this.setState({
       building,
     })
