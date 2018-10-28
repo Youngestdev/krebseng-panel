@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Link, withRouter} from 'react-router-dom';
-import TableRow from "./TabRow";
-import auth0Client from "../Auth/Auth";
+import TableRow from './TabRow';
+import auth0Client from '../Auth/Auth';
 
 
 class Buildings extends Component {
@@ -30,14 +30,14 @@ class Buildings extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="row">
+        <div className="container jumbotron">
           {this.state.buildings === null && <p> Loading Buildings</p>}
-          <Link className="btn btn-primary  btn-lg" to="/panel/new-building">
+          <Link className="btn btn-primary btn-md" to="/panel/new-building" role="button">
             Add New Building
           </Link>
-          <table className="table">
-            <thead>
+          <hr className="my-4" />
+          <table className="table table-bordered container">
+            <thead className="table-primary">
             <tr>
               <td>Title</td>
               <td>Date</td>
@@ -49,7 +49,6 @@ class Buildings extends Component {
             </tbody>
           </table>
         </div>
-      </div>
     )
   }
 }
